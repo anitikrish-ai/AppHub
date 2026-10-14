@@ -1,0 +1,17 @@
+# AppHub
+> The curated application store for modern desktop, developer, and creative software.
+
+## Overview
+AppHub is a curated directory and distribution platform for independent creators, developers, and power users.
+Key features include:
+- Curated catalog spanning Productivity, Developer Tools, Utilities, Graphics & Design, Audio & Music, and Games.
+- AppHub Gatekeeper security checks and binary integrity verification.
+- Direct package downloads (.dmg, .pkg, .zip, .exe).
+- Verified community reviews and developer ratings.
+- Developer self-service publishing portal.
+
+## Key URLs
+- Homepage: /
+- Developer Portal: /upload
+- Support & FAQ: /support
+- User Library: /account

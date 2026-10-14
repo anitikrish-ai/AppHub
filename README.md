@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AppHub — Modern Desktop & Developer Software Store
 
-## Getting Started
+AppHub is a curated application marketplace and distribution platform built with Next.js 16, React 19, Tailwind CSS v4, Framer Motion, and Supabase.
 
-First, run the development server:
+Designed with Apple Human Interface Guidelines aesthetics: glassmorphism, dynamic fluid micro-interactions, dark/light theme switching, and automated Gatekeeper security scanning.
 
+---
+
+## ✨ Features
+
+- **Curated Software Catalog**: Instant interactive search, category filtering, and responsive grid layout.
+- **Detailed Software Pages**: Real-time download packages, version metadata, specifications, and community reviews.
+- **Interactive Review System**: Star rating selection and verified feedback submission.
+- **Developer Publishing Portal**: Self-service submission with drag-and-drop icon, screenshot, and binary package uploaders.
+- **User Library & Account**: View saved favorites, download history, and installed licenses.
+- **Gatekeeper Verification**: Simulated malware and integrity scanning badges.
+- **Apple HIG Design & Dark Mode**: Seamless dark/light theme with zero flash of unstyled content (blocking pre-paint script), tactile spring physics, and canvas ambient orbs.
+- **Built-in Fallback Layer**: Works immediately out of the box with rich sample data even before connecting Supabase credentials.
+
+---
+
+## 🚀 Getting Started
+
+### 1. Install Dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Configure Environment (Optional)
+Copy `.env.local.example` to `.env.local`:
+```bash
+cp .env.local.example .env.local
+```
+Add your Supabase project URL and anon public key if connecting to a live Supabase backend.
+*(If omitted, AppHub automatically uses the built-in curated data store and in-memory submission pipeline.)*
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Database Setup (If using Supabase)
+Execute `supabase/schema.sql` in your Supabase SQL editor to create all required tables (`profiles`, `developers`, `categories`, `apps`, `app_screenshots`, `reviews`, `favorites`, `downloads`) and configure Row Level Security (RLS) policies.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Run Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠 Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework**: [Next.js 16](https://nextjs.org) (App Router, Server Actions, React Server Components)
+- **UI & State**: [React 19](https://react.dev)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com) + Custom Apple HIG CSS variables
+- **Motion**: [Framer Motion](https://www.framer.com/motion)
+- **Icons**: [Lucide React](https://lucide.dev)
+- **Backend / Database**: [Supabase](https://supabase.com) (`@supabase/ssr`, PostgreSQL)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📂 Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+├── public/                 # Static assets, robots.txt, sitemap.xml, llms.txt
+├── src/
+│   ├── app/                # Next.js App Router routes
+│   │   ├── account/        # User library & account
+│   │   ├── app/[slug]/     # Software detail, reviews, downloads
+│   │   ├── support/        # Help center & FAQ
+│   │   ├── upload/         # Developer submission portal
+│   │   ├── layout.tsx      # Root layout & SEO metadata
+│   │   ├── page.tsx        # Store homepage
+│   │   └── not-found.tsx   # Custom 404 page
+│   ├── components/         # Reusable UI & motion components
+│   └── lib/
+│       ├── data.ts         # Central data layer with fallback seed store
+│       └── supabase/       # SSR browser & server Supabase clients
+└── supabase/
+    └── schema.sql          # PostgreSQL schema and RLS policies
+```
