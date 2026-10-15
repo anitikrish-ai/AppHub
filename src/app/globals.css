@@ -1,0 +1,300 @@
+@import "tailwindcss";
+
+/* ===================== Apple HIG-inspired theme tokens ===================== */
+:root {
+  --color-bg: #fafafc;
+  --color-bg-elevated: #ffffff;
+  --color-text-primary: #1d1d1f;
+  --color-text-secondary: rgba(29, 29, 31, 0.62);
+  --color-text-tertiary: rgba(29, 29, 31, 0.4);
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-strong: rgba(0, 0, 0, 0.14);
+
+  /* Glass surfaces: translucent, blurred */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-bg-strong: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-blur: 24px;
+  --lg-rgb: 255 255 255;
+  --lg-boost: 1;
+  --lg-spec: 0.7;
+  --lg-rim: 0.18;
+
+  --color-brand: #0071e3;
+  --color-brand-hover: #0077ed;
+  --color-on-brand: #ffffff;
+  --color-success: #30d158;
+  --color-warning: #ff9f0a;
+  --color-danger: #ff453a;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --color-bg: #000000;
+  --color-bg-elevated: #161617;
+  --color-text-primary: #f5f5f7;
+  --color-text-secondary: rgba(245, 245, 247, 0.62);
+  --color-text-tertiary: rgba(245, 245, 247, 0.4);
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+
+  --glass-bg: rgba(28, 28, 30, 0.6);
+  --glass-bg-strong: rgba(28, 28, 30, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: 24px;
+  --lg-rgb: 40 40 46;
+  --lg-boost: 1.2;
+  --lg-spec: 0.28;
+  --lg-rim: 0.1;
+
+  --color-brand: #0a84ff;
+  --color-brand-hover: #3396ff;
+  --color-on-brand: #ffffff;
+  --color-success: #32d74b;
+  --color-warning: #ff9f0a;
+  --color-danger: #ff453a;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+  color-scheme: dark;
+}
+
+/* System preference fallback for a visitor who hasn't toggled yet */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #000000;
+    --color-bg-elevated: #161617;
+    --color-text-primary: #f5f5f7;
+    --color-text-secondary: rgba(245, 245, 247, 0.62);
+    --color-text-tertiary: rgba(245, 245, 247, 0.4);
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-border-strong: rgba(255, 255, 255, 0.16);
+
+    --glass-bg: rgba(28, 28, 30, 0.6);
+    --glass-bg-strong: rgba(28, 28, 30, 0.78);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --lg-rgb: 40 40 46;
+    --lg-boost: 1.2;
+    --lg-spec: 0.28;
+    --lg-rim: 0.1;
+
+    --color-brand: #0a84ff;
+    --color-brand-hover: #3396ff;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-elevated: var(--color-bg-elevated);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
+  --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+  --color-brand: var(--color-brand);
+  --color-brand-hover: var(--color-brand-hover);
+  --color-on-brand: var(--color-on-brand);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-danger: var(--color-danger);
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+    "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-pill: var(--radius-pill);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ===================== Liquid Glass material =====================
+   Optics (refraction + prism fringe) come from lib/liquid-glass via
+   <LiquidGlassProvider/>, which sets an inline backdrop-filter. The CSS below
+   is (a) the material dressing from the liquid-glass recipe — tint, specular
+   edge, shadow — and (b) the frosted fallback used before hydration, on
+   Safari/Firefox, and on surfaces too large for refraction.
+   In @layer components so Tailwind utilities (shadow-*, border-*) still win. */
+@layer components {
+  .liquid-glass,
+  .liquid-glass-subtle,
+  .liquid-glass-medium,
+  .liquid-glass-strong,
+  .glass,
+  .glass-strong {
+    --lg-a: 0.5;
+    --lg-b: 0.32;
+    --lg-blur: 20px;
+    position: relative;
+    background: linear-gradient(
+      180deg,
+      rgb(var(--lg-rgb) / calc(var(--lg-a) * var(--lg-boost))),
+      rgb(var(--lg-rgb) / calc(var(--lg-b) * var(--lg-boost)))
+    );
+    backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+    -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(1.5);
+  }
+  .liquid-glass-subtle,
+  .glass {
+    --lg-a: 0.42;
+    --lg-b: 0.26;
+    --lg-blur: 16px;
+  }
+  .liquid-glass-strong,
+  .glass-strong {
+    --lg-a: 0.62;
+    --lg-b: 0.42;
+    --lg-blur: 28px;
+  }
+  .liquid-glass,
+  .glass,
+  .glass-strong {
+    border: 1px solid var(--glass-border);
+  }
+  .liquid-glass {
+    box-shadow: 0 8px 32px 0 rgb(0 0 0 / 0.08);
+  }
+  .liquid-glass-strong {
+    box-shadow: 0 16px 48px -8px rgb(0 0 0 / 0.16);
+  }
+
+  /* Specular highlight + 1px glass rim, independent of the element's own shadow */
+  .liquid-glass::after,
+  .liquid-glass-subtle::after,
+  .liquid-glass-medium::after,
+  .liquid-glass-strong::after,
+  .glass::after,
+  .glass-strong::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow:
+      inset 0 1px 1px rgb(255 255 255 / var(--lg-spec)),
+      inset 0 -8px 20px rgb(255 255 255 / 0.06),
+      inset 0 0 0 1px rgb(255 255 255 / var(--lg-rim));
+  }
+}
+
+/* Large display typography */
+.text-display {
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+.text-heading {
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .glass-strong,
+  .liquid-glass,
+  .liquid-glass-subtle,
+  .liquid-glass-medium,
+  .liquid-glass-strong {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--color-bg-elevated);
+  }
+}
+
+/* ===================== Custom Utility Classes ===================== */
+.rounded-pill {
+  border-radius: 999px;
+}
+
+/* ===================== Animation Keyframes ===================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-spin-slow {
+  animation: spinSlow 8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-scale-in,
+  .animate-spin-slow {
+    animation: none !important;
+  }
+}
